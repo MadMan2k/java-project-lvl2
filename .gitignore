@@ -3,3 +3,12 @@
 
 # Ignore Gradle build output directory
 build
+
+# Ignore App.class
+src⁩/⁨main⁩/⁨java⁩/⁨hexlet⁩/⁨code/App.class
+
+# Ignore .DS_Store
+.DS_Store
+
+# Ignore .idea
+.idea
