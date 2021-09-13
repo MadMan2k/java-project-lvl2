@@ -15,4 +15,8 @@ jobs:
         with:
           java-version: '15'
       - name: Build with Gradle
+<<<<<<< HEAD
         run: make build
+=======
+        run: make build
+>>>>>>> cc0805c3fd0eda8e4db614649866921418dbcd77
