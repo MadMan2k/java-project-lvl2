@@ -63,7 +63,6 @@ public class Differ extends App {
         }
 
         sb.append("}");
-
         return sb.toString();
     }
 

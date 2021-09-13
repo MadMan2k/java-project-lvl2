@@ -13,3 +13,9 @@ run: # запуск приложения
 
 lint: # проверка стиля кодирования
 	./gradlew checkstyleMain
+
+clean: #очистка
+	./gradlew clean
+
+build: clean # создание билда
+	./gradlew build
