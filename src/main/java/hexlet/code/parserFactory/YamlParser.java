@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.Map;
 
 public class YamlParser implements Parser {
+    /**
+     * Yaml parser implementation.
+     */
     @Override
     public Map<String, String> parse(String inputPath) throws IOException {
         ObjectMapper ob = new ObjectMapper();
