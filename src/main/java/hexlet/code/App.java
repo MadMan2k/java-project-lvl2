@@ -5,6 +5,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
@@ -22,21 +23,16 @@ public class App implements Callable {
      * call.
      */
     @Override
-    public Object call() throws Exception {
-        String diffString = Differ.generate(pathToFirst, pathToSecond);
-        System.out.println(diffString);
+    public Object call() {
+        try {
+            String diffString = Differ.generate(pathToFirst, pathToSecond);
+            System.out.println(diffString);
+        } catch (DifferExceptions | IOException d) {
+            System.out.println(d.getMessage());
+        }
+
         return null;
     }
-
-//    @Parameters(paramLabel = "<word>", defaultValue = "Hello, picocli",
-//            description = "Words to be translated into ASCII art.")
-//
-//    private String[] words = { "Hello,", "picocli" };
-
-//    @Override
-//    public void run() {
-//
-//    }
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
