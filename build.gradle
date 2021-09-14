@@ -43,8 +43,6 @@ test {
 
 jacoco {
     toolVersion = "0.8.7"
-//    reportsDir = file("$buildDir/jacoco")
-//    reportsDirectory = file("$buildDir/jacoco")
 }
 
 test {
