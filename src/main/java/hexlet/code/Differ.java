@@ -1,7 +1,8 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.parserFactory.JsonParser;
+import hexlet.code.parserFactory.Parser;
+import hexlet.code.parserFactory.YamlParser;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,10 +15,10 @@ import java.util.stream.Stream;
 
 public class Differ extends App {
 
-//    public static void main(String[] args) throws DifferExceptions, IOException {
+//    public static void main(String[] args) {
 //        try {
-//            String str = generate(Path.of("src/test/java/hexlet/code/TestFile1.json"),
-//                    Path.of("src/test/java/hexlet/code/TestFile2.json"));
+//            String str = generate(Path.of("src/test/resources/TestFile1.json"),
+//                    Path.of("src/test/resources/TestFile5.yml"));
 //            System.out.println(str);
 //        } catch (DifferExceptions | IOException d) {
 //            System.out.println(d.getMessage());
@@ -26,14 +27,11 @@ public class Differ extends App {
 
     public static String generate(Path firstPath, Path secondPath) throws DifferExceptions, IOException {
         checkExceptions(firstPath, secondPath);
-        String stringFirstInputPath = getAbsolutePathString(firstPath);
-        String stringSecondInputPath = getAbsolutePathString(secondPath);
-        ObjectMapper ob = new ObjectMapper();
-        Map<String, String> jsonMap1 = ob.readValue(new File(stringFirstInputPath),
-                new TypeReference<Map<String, String>>() { });
-        Map<String, String> jsonMap2 = ob.readValue(new File(stringSecondInputPath),
-                new TypeReference<Map<String, String>>() { });
-        return calculateDifference(jsonMap1, jsonMap2);
+
+        Map<String, String> parsedMap1 = getParsedMap(firstPath);
+        Map<String, String> parsedMap2 = getParsedMap(secondPath);
+
+        return calculateDifference(parsedMap1, parsedMap2);
     }
 
     private static String calculateDifference(Map<String, String> firstMap, Map<String, String> secondMap) {
@@ -94,5 +92,21 @@ public class Differ extends App {
     private static String getFileNameFromPath(Path path) {
         String[] pathParts = String.valueOf(path).split("/");
         return pathParts[pathParts.length - 1];
+    }
+
+    private static Parser createParserByFormat(String format) throws DifferExceptions {
+        if (format.equalsIgnoreCase("json")) {
+            return new JsonParser();
+        } else if (format.equalsIgnoreCase("yml") || format.equalsIgnoreCase("yaml")) {
+            return new YamlParser();
+        } else {
+            throw new DifferExceptions("." + format + " not supported. Only json/yml input allowed");
+        }
+    }
+
+    private static Map<String, String> getParsedMap(Path path) throws DifferExceptions, IOException {
+        String stringInputPath = getAbsolutePathString(path);
+        Parser parser = createParserByFormat(getFileNameFromPath(path).split("\\.", 2)[1]);
+        return parser.parse(stringInputPath);
     }
 }
