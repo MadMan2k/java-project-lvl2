@@ -8,6 +8,7 @@ plugins {
   id 'com.github.ben-manes.versions' version '0.39.0'
   id 'application'
   id 'checkstyle'
+  id 'jacoco'
 }
 
 group = 'hexlet.code'
@@ -32,10 +33,24 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     testImplementation 'org.assertj:assertj-core:3.19.0'
+//    implementation 'org.jacoco:jacoco-maven-plugin:0.8.7'
 }
 
 test {
     useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+//    reportsDir = file("$buildDir/jacoco")
+//    reportsDirectory = file("$buildDir/jacoco")
+}
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
 }
 
 //testlogger {
