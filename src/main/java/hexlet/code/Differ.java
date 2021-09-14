@@ -26,7 +26,7 @@ public class Differ extends App {
 //    }
 
     public static String generate(Path firstPath, Path secondPath) throws DifferExceptions, IOException {
-        checkExceptions(firstPath, secondPath);
+        checkFilepathAndFileIsNotEmptyExceptions(firstPath, secondPath);
 
         Map<String, String> parsedMap1 = getParsedMap(firstPath);
         Map<String, String> parsedMap2 = getParsedMap(secondPath);
@@ -74,7 +74,7 @@ public class Differ extends App {
         return path.toString();
     }
 
-    public static void checkExceptions(Path path1, Path path2) throws DifferExceptions {
+    public static void checkFilepathAndFileIsNotEmptyExceptions(Path path1, Path path2) throws DifferExceptions {
         Path[] pathsArray = new Path[2];
         pathsArray[0] = path1;
         pathsArray[1] = path2;
