@@ -17,5 +17,7 @@ lint: # проверка стиля кодирования
 clean: #очистка
 	./gradlew clean
 
+.PHONY: build
 build: clean # создание билда
 	./gradlew build
+

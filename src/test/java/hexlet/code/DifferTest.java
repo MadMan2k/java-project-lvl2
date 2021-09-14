@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 class DifferTest {
-    private final Path pathTestFile1 = Path.of("src/test/java/hexlet/code/TestFile1.json");
-    private final Path pathTestFile2 = Path.of("src/test/java/hexlet/code/TestFile2.json");
-    private final Path pathTestFileIsEmpty = Path.of("src/test/java/hexlet/code/TestFile3.json");
+    private final Path pathTestFile1 = Path.of("src/test/resources/TestFile1.json");
+    private final Path pathTestFile2 = Path.of("src/test/resources/TestFile2.json");
+    private final Path pathTestFileIsEmpty = Path.of("src/test/resources/TestFile3.json");
     private final Path pathNonValid = Path.of("non-valid-filepath");
 
     @Test
