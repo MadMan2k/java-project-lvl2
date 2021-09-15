@@ -24,27 +24,27 @@ class DifferTest {
                 + "  + timeout: 20\n"
                 + "  + verbose: true\n"
                 + "}";
-        assertThat(Differ.generate(pathTestFile1, pathTestFile2)).isEqualTo(expected);
+        assertThat(Differ.generate(pathTestFile1, pathTestFile2, "stylish")).isEqualTo(expected);
     }
 
     @Test
     void testEmptyFileException() {
         assertThatThrownBy(() -> {
-            Differ.generate(pathTestFile1, pathTestFileIsEmpty);
+            Differ.generate(pathTestFile1, pathTestFileIsEmpty, "");
         }).isInstanceOf(DifferExceptions.class);
     }
 
     @Test
     void testBadFilepathException() {
         assertThatThrownBy(() -> {
-            Differ.generate(pathTestFile1, pathNonValid);
+            Differ.generate(pathTestFile1, pathNonValid, "");
         }).isInstanceOf(DifferExceptions.class);
     }
 
     @Test
     void testFileNotSupportedException() {
         assertThatThrownBy(() -> {
-            Differ.generate(pathTestFile1, pathTestFormatNotSupported);
+            Differ.generate(pathTestFile1, pathTestFormatNotSupported, "");
         }).isInstanceOf(DifferExceptions.class);
     }
 }

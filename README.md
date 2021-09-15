@@ -14,3 +14,7 @@ ASCIINEMA Differ [json] :
 ASCIINEMA Differ [yml] :
 
 [![asciicast](https://asciinema.org/a/HzOktbUkvT3098d2ZQXJF2Nok.svg)](https://asciinema.org/a/HzOktbUkvT3098d2ZQXJF2Nok)
+
+ASCIINEMA Differ [-f plain] :
+
+[![asciicast](https://asciinema.org/a/yO8rJNsO7CvqF2cUsJCohTXoI.svg)](https://asciinema.org/a/yO8rJNsO7CvqF2cUsJCohTXoI)

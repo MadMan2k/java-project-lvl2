@@ -7,14 +7,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-public class JsonParser implements Parser {
+public class JsonParser implements ParserFactory {
     /**
      * Json parser implementation.
      */
     @Override
-    public Map<String, String> parse(String inputPath) throws IOException {
+    public Map<String, Object> parse(String inputPath) throws IOException {
         ObjectMapper ob = new ObjectMapper();
         return ob.readValue(new File(inputPath),
-                new TypeReference<Map<String, String>>() { });
+                new TypeReference<Map<String, Object>>() { });
     }
 }

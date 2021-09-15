@@ -1,7 +1,8 @@
 package hexlet.code;
 
+import hexlet.code.formatters.FormatterFactory;
 import hexlet.code.parserFactory.JsonParser;
-import hexlet.code.parserFactory.Parser;
+import hexlet.code.parserFactory.ParserFactory;
 import hexlet.code.parserFactory.YamlParser;
 
 import java.io.File;
@@ -17,54 +18,30 @@ public class Differ extends App {
 
 //    public static void main(String[] args) {
 //        try {
-//            String str = generate(Path.of("src/test/resources/TestFile1.json"),
-//                    Path.of("src/test/resources/TestFile5.yml"));
+//            String outputFormat = "plain";
+//            String str = generate(Path.of("src/test/resources/JsonWithArray1.json"),
+//                    Path.of("src/test/resources/JsonWithArray2.json"), outputFormat);
 //            System.out.println(str);
 //        } catch (DifferExceptions | IOException d) {
 //            System.out.println(d.getMessage());
 //        }
 //    }
 
-    public static String generate(Path firstPath, Path secondPath) throws DifferExceptions, IOException {
+    public static String generate(Path firstPath, Path secondPath, String outputFormat)
+            throws DifferExceptions, IOException {
+//        System.out.println(outputFormat);
         checkFilepathAndFileIsNotEmptyExceptions(firstPath, secondPath);
 
-        Map<String, String> parsedMap1 = getParsedMap(firstPath);
-        Map<String, String> parsedMap2 = getParsedMap(secondPath);
+        Map<String, Object> parsedMap1 = getParsedMap(firstPath);
+        Map<String, Object> parsedMap2 = getParsedMap(secondPath);
 
-        return calculateDifference(parsedMap1, parsedMap2);
-    }
-
-    private static String calculateDifference(Map<String, String> firstMap, Map<String, String> secondMap) {
-
-        LinkedHashSet<String> keySet = Stream.concat(firstMap.keySet().stream(), secondMap.keySet().stream())
+        LinkedHashSet<String> keySet = Stream.concat(parsedMap1.keySet().stream(), parsedMap2.keySet().stream())
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
+        FormatterFactory formatter = Formatter.createFormatterByFormat(outputFormat);
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\n");
+        return formatter.format(parsedMap1, parsedMap2, keySet);
 
-        for (String keyElement : keySet) {
-            if (!firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)) {
-                sb.append("  + ").append(keyElement).append(": ").append(secondMap.get(keyElement)).append("\n");
-                continue;
-            }
-            if (firstMap.containsKey(keyElement) && !secondMap.containsKey(keyElement)) {
-                sb.append("  - ").append(keyElement).append(": ").append(firstMap.get(keyElement)).append("\n");
-                continue;
-            }
-            if (firstMap.get(keyElement).equals(secondMap.get(keyElement))) {
-                sb.append("    ").append(keyElement).append(": ").append(firstMap.get(keyElement)).append("\n");
-                continue;
-            }
-            if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
-                    && !firstMap.get(keyElement).equals(secondMap.get(keyElement))) {
-                sb.append("  - ").append(keyElement).append(": ").append(firstMap.get(keyElement)).append("\n");
-                sb.append("  + ").append(keyElement).append(": ").append(secondMap.get(keyElement)).append("\n");
-            }
-        }
-
-        sb.append("}");
-        return sb.toString();
     }
 
     private static String getAbsolutePathString(Path path) {
@@ -74,7 +51,7 @@ public class Differ extends App {
         return path.toString();
     }
 
-    public static void checkFilepathAndFileIsNotEmptyExceptions(Path path1, Path path2) throws DifferExceptions {
+    private static void checkFilepathAndFileIsNotEmptyExceptions(Path path1, Path path2) throws DifferExceptions {
         Path[] pathsArray = new Path[2];
         pathsArray[0] = path1;
         pathsArray[1] = path2;
@@ -94,7 +71,7 @@ public class Differ extends App {
         return pathParts[pathParts.length - 1];
     }
 
-    private static Parser createParserByFormat(String format) throws DifferExceptions {
+    private static ParserFactory createParserByFormat(String format) throws DifferExceptions {
         if (format.equalsIgnoreCase("json")) {
             return new JsonParser();
         } else if (format.equalsIgnoreCase("yml") || format.equalsIgnoreCase("yaml")) {
@@ -104,9 +81,9 @@ public class Differ extends App {
         }
     }
 
-    private static Map<String, String> getParsedMap(Path path) throws DifferExceptions, IOException {
+    private static Map<String, Object> getParsedMap(Path path) throws DifferExceptions, IOException {
         String stringInputPath = getAbsolutePathString(path);
-        Parser parser = createParserByFormat(getFileNameFromPath(path).split("\\.", 2)[1]);
+        ParserFactory parser = createParserByFormat(getFileNameFromPath(path).split("\\.", 2)[1]);
         return parser.parse(stringInputPath);
     }
 }
