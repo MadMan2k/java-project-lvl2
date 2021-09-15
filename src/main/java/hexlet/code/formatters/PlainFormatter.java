@@ -33,8 +33,7 @@ public class PlainFormatter implements FormatterFactory {
                         append(replaceIfComplexValue(secondMap.get(keyElement))).append("\n");
             }
         }
-
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     private static String replaceIfComplexValue(Object inputValue) {
