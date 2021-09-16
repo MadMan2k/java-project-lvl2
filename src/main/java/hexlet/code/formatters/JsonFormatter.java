@@ -58,10 +58,12 @@ public class JsonFormatter implements FormatterFactory {
             field.append("\t\t{\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n");
 
             StringBuilder oldValue = new StringBuilder();
-            oldValue.append("\t\t\t\"oldValue\": ").append(getValueInJsonFormat(firstMap.get(keyElement))).append(",\n");
+            oldValue.append("\t\t\t\"oldValue\": ").append(getValueInJsonFormat(firstMap.get(keyElement))).
+                    append(",\n");
 
             StringBuilder newValue = new StringBuilder();
-            newValue.append("\t\t\t\"newValue\": ").append(getValueInJsonFormat(secondMap.get(keyElement))).append(",\n");
+            newValue.append("\t\t\t\"newValue\": ").append(getValueInJsonFormat(secondMap.get(keyElement))).
+                    append(",\n");
 
             String status = "\t\t\t\"status\": \"%s\"\n\t\t},\n";
 
