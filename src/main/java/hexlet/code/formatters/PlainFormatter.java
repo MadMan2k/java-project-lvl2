@@ -43,9 +43,8 @@ public class PlainFormatter implements FormatterFactory {
         String inputValueString = inputValue.toString();
 //        if ((inputValueString.startsWith("[") && inputValueString.endsWith("]"))
 //                || (inputValueString.startsWith("{") && inputValueString.endsWith("}"))) {
-        if (inputValue.getClass().getSimpleName().equals("ArrayList") ||
-        inputValue.getClass().getSimpleName().equals("LinkedHashMap"))
-        {
+        if (inputValue.getClass().getSimpleName().equals("ArrayList")
+                || inputValue.getClass().getSimpleName().equals("LinkedHashMap")) {
             return "[complex value]";
         }
         if (inputValue instanceof String) {
