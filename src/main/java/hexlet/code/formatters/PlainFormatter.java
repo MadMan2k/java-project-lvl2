@@ -12,10 +12,6 @@ public class PlainFormatter implements FormatterFactory {
      */
     @Override
     public String format(Map<String, Object> firstMap, Map<String, Object> secondMap, LinkedHashSet<String> keySet) {
-//
-//        System.out.println(firstMap.toString());
-//        System.out.println(secondMap.toString());
-
         StringBuilder sb = new StringBuilder();
 
         for (String keyElement : keySet) {

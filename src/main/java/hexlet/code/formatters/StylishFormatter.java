@@ -10,7 +10,6 @@ public class StylishFormatter implements FormatterFactory {
      */
     @Override
     public String format(Map<String, Object> firstMap, Map<String, Object> secondMap, LinkedHashSet<String> keySet) {
-
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
 
@@ -33,7 +32,6 @@ public class StylishFormatter implements FormatterFactory {
                 sb.append("  + ").append(keyElement).append(": ").append(secondMap.get(keyElement)).append("\n");
             }
         }
-
         sb.append("}");
         return sb.toString();
     }
