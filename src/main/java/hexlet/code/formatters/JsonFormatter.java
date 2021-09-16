@@ -20,7 +20,7 @@ public class JsonFormatter implements FormatterFactory {
         for (String keyElement : keySet) {
             if (!firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)) {
                 sb.append("\t\t{\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
-                        append("\t\t\t\"newValue\": ").append(replaceIfComplexValue(secondMap.get(keyElement))).
+                        append("\t\t\t\"newValue\": ").append(getValueInJsonFormat(secondMap.get(keyElement))).
                         append(",\n").
                         append("\t\t\t\"status\": \"added\"\n\t\t},\n");
 
@@ -29,7 +29,7 @@ public class JsonFormatter implements FormatterFactory {
             }
             if (firstMap.containsKey(keyElement) && !secondMap.containsKey(keyElement)) {
                 sb.append("\t\t{\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
-                        append("\t\t\t\"oldValue\": ").append(replaceIfComplexValue(firstMap.get(keyElement))).
+                        append("\t\t\t\"oldValue\": ").append(getValueInJsonFormat(firstMap.get(keyElement))).
                         append(",\n").
                         append("\t\t\t\"status\": \"removed\"\n\t\t},\n");
 
@@ -38,9 +38,9 @@ public class JsonFormatter implements FormatterFactory {
             }
             if (Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
                 sb.append("\t\t{\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
-                        append("\t\t\t\"oldValue\": ").append(replaceIfComplexValue(firstMap.get(keyElement))).
+                        append("\t\t\t\"oldValue\": ").append(getValueInJsonFormat(firstMap.get(keyElement))).
                         append(",\n").
-                        append("\t\t\t\"newValue\": ").append(replaceIfComplexValue(secondMap.get(keyElement))).
+                        append("\t\t\t\"newValue\": ").append(getValueInJsonFormat(secondMap.get(keyElement))).
                         append(",\n").
                         append("\t\t\t\"status\": \"unaffected\"\n\t\t},\n");
 
@@ -50,9 +50,9 @@ public class JsonFormatter implements FormatterFactory {
             if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
                     && !Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
                 sb.append("\t\t{\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
-                        append("\t\t\t\"oldValue\": ").append(replaceIfComplexValue(firstMap.get(keyElement))).
+                        append("\t\t\t\"oldValue\": ").append(getValueInJsonFormat(firstMap.get(keyElement))).
                         append(",\n").
-                        append("\t\t\t\"newValue\": ").append(replaceIfComplexValue(secondMap.get(keyElement))).
+                        append("\t\t\t\"newValue\": ").append(getValueInJsonFormat(secondMap.get(keyElement))).
                         append(",\n").
                         append("\t\t\t\"status\": \"updated\"\n\t\t},\n");
 
@@ -65,39 +65,47 @@ public class JsonFormatter implements FormatterFactory {
         return sb.toString();
     }
 
-    private static String replaceIfComplexValue(Object inputValue) {
+    private static String getValueInJsonFormat(Object inputValue) {
         if (inputValue == null) {
             return null;
         }
+        String result = "";
         String clazz = inputValue.getClass().getSimpleName();
         switch (clazz) {
             case "Boolean":
             case "Integer":
-                return inputValue.toString();
+                result = inputValue.toString();
+                break;
+//                return inputValue.toString();
             case "ArrayList":
                 List<Object> list = (List<Object>) inputValue;
                 StringBuilder arrListSb = new StringBuilder();
                 arrListSb.append("[");
                 for (Object o: list) {
-                    arrListSb.append(replaceIfComplexValue(o)).append(", ");
+                    arrListSb.append(getValueInJsonFormat(o)).append(", ");
                 }
                 arrListSb.setLength(arrListSb.length() - 2);
                 arrListSb.append("]");
-                return arrListSb.toString();
+                result = arrListSb.toString();
+                break;
+//                return arrListSb.toString();
             case "LinkedHashMap":
                 Map<Object, Object> map = (LinkedHashMap<Object, Object>) inputValue;
                 StringBuilder lHMSb = new StringBuilder();
                 lHMSb.append("{\n");
                 for (Map.Entry<Object, Object> e: map.entrySet()) {
-                    lHMSb.append("\t\t\t\t").append(replaceIfComplexValue(e.getKey())).append(": ").
-                            append(replaceIfComplexValue(e.getValue())).append(",\n");
+                    lHMSb.append("\t\t\t\t").append(getValueInJsonFormat(e.getKey())).append(": ").
+                            append(getValueInJsonFormat(e.getValue())).append(",\n");
                 }
                 lHMSb.setLength(lHMSb.length() - 2);
                 lHMSb.append("\n\t\t\t}");
-                return lHMSb.toString();
-
+                result = lHMSb.toString();
+                break;
+//                return lHMSb.toString();
             default:
-                return "\"" + inputValue.toString() + "\"";
+                result = "\"" + inputValue.toString() + "\"";
+//                return "\"" + inputValue.toString() + "\"";
         }
+        return result;
     }
 }

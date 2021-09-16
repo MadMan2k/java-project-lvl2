@@ -19,7 +19,7 @@ public class PlainFormatter implements FormatterFactory {
         for (String keyElement : keySet) {
             if (!firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)) {
                 sb.append("Property '").append(keyElement).append("' was added with value: ").
-                        append(replaceIfComplexValue(secondMap.get(keyElement))).append("\n");
+                        append(getValueInPlainFormatOrReplaceIfComplexValue(secondMap.get(keyElement))).append("\n");
                 continue;
             }
             if (firstMap.containsKey(keyElement) && !secondMap.containsKey(keyElement)) {
@@ -29,14 +29,14 @@ public class PlainFormatter implements FormatterFactory {
             if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
                     && !Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
                 sb.append("Property '").append(keyElement).append("' was updated. From ").
-                        append(replaceIfComplexValue(firstMap.get(keyElement))).append(" to ").
-                        append(replaceIfComplexValue(secondMap.get(keyElement))).append("\n");
+                        append(getValueInPlainFormatOrReplaceIfComplexValue(firstMap.get(keyElement))).append(" to ").
+                        append(getValueInPlainFormatOrReplaceIfComplexValue(secondMap.get(keyElement))).append("\n");
             }
         }
         return sb.toString().trim();
     }
 
-    private static String replaceIfComplexValue(Object inputValue) {
+    private static String getValueInPlainFormatOrReplaceIfComplexValue(Object inputValue) {
         if (inputValue == null) {
             return null;
         }
