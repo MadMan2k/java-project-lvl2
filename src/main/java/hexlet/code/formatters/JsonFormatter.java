@@ -1,9 +1,16 @@
 package hexlet.code.formatters;
 
-import java.lang.reflect.Array;
-import java.util.*;
 
-public class JsonFormatter implements FormatterFactory{
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+public class JsonFormatter implements FormatterFactory {
+    /**
+     * Make JSON output.
+     */
     @Override
     public String format(Map<String, Object> firstMap, Map<String, Object> secondMap, LinkedHashSet<String> keySet) {
 
