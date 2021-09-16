@@ -23,13 +23,11 @@ public class StylishFormatter implements FormatterFactory {
                 sb.append("  - ").append(keyElement).append(": ").append(firstMap.get(keyElement)).append("\n");
                 continue;
             }
-//            if (firstMap.get(keyElement).equals(secondMap.get(keyElement))) {
             if (Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
                 sb.append("    ").append(keyElement).append(": ").append(firstMap.get(keyElement)).append("\n");
                 continue;
             }
             if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
-//                    && !firstMap.get(keyElement).equals(secondMap.get(keyElement))) {
                     && !Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
                 sb.append("  - ").append(keyElement).append(": ").append(firstMap.get(keyElement)).append("\n");
                 sb.append("  + ").append(keyElement).append(": ").append(secondMap.get(keyElement)).append("\n");

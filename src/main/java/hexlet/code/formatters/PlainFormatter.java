@@ -38,7 +38,6 @@ public class PlainFormatter implements FormatterFactory {
 
     private static String replaceIfComplexValue(Object inputValue) {
         if (inputValue == null) {
-//            inputValue = "null";
             return null;
         }
         String inputValueString = inputValue.toString();
@@ -49,10 +48,6 @@ public class PlainFormatter implements FormatterFactory {
         if (inputValue instanceof String) {
             return "'" + inputValueString + "'";
         }
-//        if (inputValue == null) {
-//            return null;
-//        }
-
         return inputValueString;
     }
 }

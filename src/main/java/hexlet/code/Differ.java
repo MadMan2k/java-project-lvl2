@@ -16,16 +16,16 @@ import java.util.stream.Stream;
 
 public class Differ extends App {
 
-//    public static void main(String[] args) {
-//        try {
-//            String outputFormat = "plain";
-//            String str = generate(Path.of("src/test/resources/JsonWithArray1.json"),
-//                    Path.of("src/test/resources/JsonWithArray2.json"), outputFormat);
-//            System.out.println(str);
-//        } catch (DifferExceptions | IOException d) {
-//            System.out.println(d.getMessage());
-//        }
-//    }
+    public static void main(String[] args) {
+        try {
+            String outputFormat = "json";
+            String str = generate(Path.of("src/test/resources/TestComplexFile3.json"),
+                    Path.of("src/test/resources/TestComplexFile4.json"), outputFormat);
+            System.out.println(str);
+        } catch (DifferExceptions | IOException d) {
+            System.out.println(d.getMessage());
+        }
+    }
 
     public static String generate(Path firstPath, Path secondPath, String outputFormat)
             throws DifferExceptions, IOException {

@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.formatters.FormatterFactory;
+import hexlet.code.formatters.JsonFormatter;
 import hexlet.code.formatters.PlainFormatter;
 import hexlet.code.formatters.StylishFormatter;
 
@@ -10,8 +11,10 @@ public class Formatter {
             return new StylishFormatter();
         } else if (format.equalsIgnoreCase("plain")) {
             return new PlainFormatter();
+        }   else if (format.equalsIgnoreCase("json")) {
+            return new JsonFormatter();
         } else {
-            throw new DifferExceptions(format + " not supported. Only stylish/plain output allowed");
+            throw new DifferExceptions(format + " not supported. Only stylish/plain/json output allowed");
         }
     }
 }
