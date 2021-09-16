@@ -16,17 +16,6 @@ import java.util.stream.Stream;
 
 public class Differ extends App {
 
-//    public static void main(String[] args) {
-//        try {
-//            String outputFormat = "json";
-//            String str = generate("src/test/resources/TestFile1.json",
-//                    "src/test/resources/TestFile2.yml", outputFormat);
-//            System.out.println(str);
-//        } catch (DifferExceptions | IOException d) {
-//            System.out.println(d.getMessage());
-//        }
-//    }
-
     public static String generate(String firstStringPath, String secondStringPath, String outputFormat)
             throws DifferExceptions, IOException {
         Path firstPath = Path.of(firstStringPath);
