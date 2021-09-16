@@ -16,8 +16,10 @@ public class App implements Callable {
             description = "output format [default: ${DEFAULT-VALUE}]", paramLabel = "format")
     private String outputFormat;
 
-    @Parameters(index = "0", description = "path to first file", paramLabel = "filepath1") private String pathToFirstString;
-    @Parameters(index = "1", description = "path to second file", paramLabel = "filepath2") private String pathToSecondString;
+    @Parameters(index = "0", description = "path to first file", paramLabel = "filepath1")
+    private String pathToFirstString;
+    @Parameters(index = "1", description = "path to second file", paramLabel = "filepath2")
+    private String pathToSecondString;
 
     /**
      * call.

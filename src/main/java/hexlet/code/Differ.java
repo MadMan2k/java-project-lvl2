@@ -44,7 +44,8 @@ public class Differ extends App {
         return formatter.format(parsedMap1, parsedMap2, keySet);
     }
 
-    public static String generate(String firstStringPath, String secondStringPath) throws IOException, DifferExceptions {
+    public static String generate(String firstStringPath, String secondStringPath)
+            throws IOException, DifferExceptions {
         return generate(firstStringPath, secondStringPath, "stylish");
     }
 
