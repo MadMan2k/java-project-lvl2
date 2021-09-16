@@ -54,95 +54,95 @@ class DifferTest {
         String expected = """
                 {
                 \t"jsonDiff": [
-                	    {
-                			"field": "chars1",
-                			"oldValue": ["a", "b", "c"],
-                			"newValue": ["a", "b", "c"],
-                			"status": "unaffected"
-                		},
-                	    {
-                			"field": "chars2",
-                			"oldValue": ["d", "e", "f"],
-                			"newValue": false,
-                			"status": "updated"
-                		},
-                	    {
-                			"field": "checked",
-                			"oldValue": false,
-                			"newValue": true,
-                			"status": "updated"
-                		},
-                	    {
-                			"field": "default",
-                			"oldValue": null,
-                			"newValue": ["value1", "value2"],
-                			"status": "updated"
-                		},
-                	    {
-                			"field": "id",
-                			"oldValue": 45,
-                			"newValue": null,
-                			"status": "updated"
-                		},
-                	    {
-                			"field": "key1",
-                			"oldValue": "value1",
-                			"status": "removed"
-                		},
-                	    {
-                			"field": "key2",
-                			"newValue": "value2",
-                			"status": "added"
-                		},
-                	    {
-                			"field": "numbers1",
-                			"oldValue": [1, 2, 3, 4],
-                			"newValue": [1, 2, 3, 4],
-                			"status": "unaffected"
-                		},
-                	    {
-                			"field": "numbers2",
-                			"oldValue": [2, 3, 4, 5],
-                			"newValue": [22, 33, 44, 55],
-                			"status": "updated"
-                		},
-                	    {
-                			"field": "numbers3",
-                			"oldValue": [3, 4, 5],
-                			"status": "removed"
-                		},
-                	    {
-                			"field": "numbers4",
-                			"newValue": [4, 5, 6],
-                			"status": "added"
-                		},
-                	    {
-                			"field": "obj1",
-                			"newValue": {
-                				"nestedKey": "value",
-                				"isNested": true
-                			},
-                			"status": "added"
-                		},
-                	    {
-                			"field": "setting1",
-                			"oldValue": "Some value",
-                			"newValue": "Another value",
-                			"status": "updated"
-                		},
-                	    {
-                			"field": "setting2",
-                			"oldValue": 200,
-                			"newValue": 300,
-                			"status": "updated"
-                		},
-                	    {
-                			"field": "setting3",
-                			"oldValue": true,
-                			"newValue": "none",
-                			"status": "updated"
-                		}
-                	]
+                \t\t{
+                \t\t\t"field": "chars1",
+                \t\t\t"oldValue": ["a", "b", "c"],
+                \t\t\t"newValue": ["a", "b", "c"],
+                \t\t\t"status": "unaffected"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "chars2",
+                \t\t\t"oldValue": ["d", "e", "f"],
+                \t\t\t"newValue": false,
+                \t\t\t"status": "updated"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "checked",
+                \t\t\t"oldValue": false,
+                \t\t\t"newValue": true,
+                \t\t\t"status": "updated"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "default",
+                \t\t\t"oldValue": null,
+                \t\t\t"newValue": ["value1", "value2"],
+                \t\t\t"status": "updated"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "id",
+                \t\t\t"oldValue": 45,
+                \t\t\t"newValue": null,
+                \t\t\t"status": "updated"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "key1",
+                \t\t\t"oldValue": "value1",
+                \t\t\t"status": "removed"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "key2",
+                \t\t\t"newValue": "value2",
+                \t\t\t"status": "added"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "numbers1",
+                \t\t\t"oldValue": [1, 2, 3, 4],
+                \t\t\t"newValue": [1, 2, 3, 4],
+                \t\t\t"status": "unaffected"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "numbers2",
+                \t\t\t"oldValue": [2, 3, 4, 5],
+                \t\t\t"newValue": [22, 33, 44, 55],
+                \t\t\t"status": "updated"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "numbers3",
+                \t\t\t"oldValue": [3, 4, 5],
+                \t\t\t"status": "removed"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "numbers4",
+                \t\t\t"newValue": [4, 5, 6],
+                \t\t\t"status": "added"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "obj1",
+                \t\t\t"newValue": {
+                \t\t\t\t"nestedKey": "value",
+                \t\t\t\t"isNested": true
+                \t\t\t},
+                \t\t\t"status": "added"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "setting1",
+                \t\t\t"oldValue": "Some value",
+                \t\t\t"newValue": "Another value",
+                \t\t\t"status": "updated"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "setting2",
+                \t\t\t"oldValue": 200,
+                \t\t\t"newValue": 300,
+                \t\t\t"status": "updated"
+                \t\t},
+                \t\t{
+                \t\t\t"field": "setting3",
+                \t\t\t"oldValue": true,
+                \t\t\t"newValue": "none",
+                \t\t\t"status": "updated"
+                \t\t}
+                \t]
                 }""";
         assertThat(Differ.generate(pathTestComplexFile3, pathTestComplexFile4, "json")).isEqualTo(expected);
     }

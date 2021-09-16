@@ -19,7 +19,7 @@ public class JsonFormatter implements FormatterFactory {
 
         for (String keyElement : keySet) {
             if (!firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)) {
-                sb.append("\t    {\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
+                sb.append("\t\t{\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
                         append("\t\t\t\"newValue\": ").append(replaceIfComplexValue(secondMap.get(keyElement))).
                         append(",\n").
                         append("\t\t\t\"status\": \"added\"\n\t\t},\n");
@@ -28,7 +28,7 @@ public class JsonFormatter implements FormatterFactory {
                 continue;
             }
             if (firstMap.containsKey(keyElement) && !secondMap.containsKey(keyElement)) {
-                sb.append("\t    {\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
+                sb.append("\t\t{\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
                         append("\t\t\t\"oldValue\": ").append(replaceIfComplexValue(firstMap.get(keyElement))).
                         append(",\n").
                         append("\t\t\t\"status\": \"removed\"\n\t\t},\n");
@@ -37,7 +37,7 @@ public class JsonFormatter implements FormatterFactory {
                 continue;
             }
             if (Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
-                sb.append("\t    {\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
+                sb.append("\t\t{\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
                         append("\t\t\t\"oldValue\": ").append(replaceIfComplexValue(firstMap.get(keyElement))).
                         append(",\n").
                         append("\t\t\t\"newValue\": ").append(replaceIfComplexValue(secondMap.get(keyElement))).
@@ -49,7 +49,7 @@ public class JsonFormatter implements FormatterFactory {
             }
             if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
                     && !Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
-                sb.append("\t    {\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
+                sb.append("\t\t{\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n").
                         append("\t\t\t\"oldValue\": ").append(replaceIfComplexValue(firstMap.get(keyElement))).
                         append(",\n").
                         append("\t\t\t\"newValue\": ").append(replaceIfComplexValue(secondMap.get(keyElement))).
