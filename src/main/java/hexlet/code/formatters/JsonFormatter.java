@@ -69,43 +69,65 @@ public class JsonFormatter implements FormatterFactory {
         if (inputValue == null) {
             return null;
         }
-        String result = "";
+        String result = "\"" + inputValue.toString() + "\"";
         String clazz = inputValue.getClass().getSimpleName();
-        switch (clazz) {
-            case "Boolean":
-            case "Integer":
-                result = inputValue.toString();
-                break;
+//        switch (clazz) {
+//            case "Boolean":
+//            case "Integer":
 //                return inputValue.toString();
-            case "ArrayList":
-                List<Object> list = (List<Object>) inputValue;
-                StringBuilder arrListSb = new StringBuilder();
-                arrListSb.append("[");
-                for (Object o: list) {
-                    arrListSb.append(getValueInJsonFormat(o)).append(", ");
-                }
-                arrListSb.setLength(arrListSb.length() - 2);
-                arrListSb.append("]");
-                result = arrListSb.toString();
-                break;
+//            case "ArrayList":
+//                List<Object> list = (List<Object>) inputValue;
+//                StringBuilder arrListSb = new StringBuilder();
+//                arrListSb.append("[");
+//                for (Object o: list) {
+//                    arrListSb.append(getValueInJsonFormat(o)).append(", ");
+//                }
+//                arrListSb.setLength(arrListSb.length() - 2);
+//                arrListSb.append("]");
 //                return arrListSb.toString();
-            case "LinkedHashMap":
-                Map<Object, Object> map = (LinkedHashMap<Object, Object>) inputValue;
-                StringBuilder lHMSb = new StringBuilder();
-                lHMSb.append("{\n");
-                for (Map.Entry<Object, Object> e: map.entrySet()) {
-                    lHMSb.append("\t\t\t\t").append(getValueInJsonFormat(e.getKey())).append(": ").
-                            append(getValueInJsonFormat(e.getValue())).append(",\n");
-                }
-                lHMSb.setLength(lHMSb.length() - 2);
-                lHMSb.append("\n\t\t\t}");
-                result = lHMSb.toString();
-                break;
+//            case "LinkedHashMap":
+//                Map<Object, Object> map = (LinkedHashMap<Object, Object>) inputValue;
+//                StringBuilder lHMSb = new StringBuilder();
+//                lHMSb.append("{\n");
+//                for (Map.Entry<Object, Object> e: map.entrySet()) {
+//                    lHMSb.append("\t\t\t\t").append(getValueInJsonFormat(e.getKey())).append(": ").
+//                            append(getValueInJsonFormat(e.getValue())).append(",\n");
+//                }
+//                lHMSb.setLength(lHMSb.length() - 2);
+//                lHMSb.append("\n\t\t\t}");
 //                return lHMSb.toString();
-            default:
-                result = "\"" + inputValue.toString() + "\"";
+//            default:
 //                return "\"" + inputValue.toString() + "\"";
+
+
+
+        if (clazz.equals("Boolean") || clazz.equals("Integer")) {
+            result = inputValue.toString();
         }
+        if (clazz.equals("ArrayList")) {
+            List<Object> list = (List<Object>) inputValue;
+            StringBuilder arrListSb = new StringBuilder();
+            arrListSb.append("[");
+            for (Object o : list) {
+                arrListSb.append(getValueInJsonFormat(o)).append(", ");
+            }
+            arrListSb.setLength(arrListSb.length() - 2);
+            arrListSb.append("]");
+            result = arrListSb.toString();
+        }
+        if (clazz.equals("LinkedHashMap")) {
+            Map<Object, Object> map = (LinkedHashMap<Object, Object>) inputValue;
+            StringBuilder lHMSb = new StringBuilder();
+            lHMSb.append("{\n");
+            for (Map.Entry<Object, Object> e: map.entrySet()) {
+                lHMSb.append("\t\t\t\t").append(getValueInJsonFormat(e.getKey())).append(": ").
+                        append(getValueInJsonFormat(e.getValue())).append(",\n");
+            }
+            lHMSb.setLength(lHMSb.length() - 2);
+            lHMSb.append("\n\t\t\t}");
+            result = lHMSb.toString();
+        }
+
         return result;
     }
 }
