@@ -15,8 +15,22 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Differ extends App {
-    public static String generate(Path firstPath, Path secondPath, String outputFormat)
+
+//    public static void main(String[] args) {
+//        try {
+//            String outputFormat = "json";
+//            String str = generate("src/test/resources/TestComplexFile3.json",
+//            "src/test/resources/TestComplexFile4.json", outputFormat);
+//            System.out.println(str);
+//        } catch (DifferExceptions | IOException d) {
+//            System.out.println(d.getMessage());
+//        }
+//    }
+
+    public static String generate(String firstStringPath, String secondStringPath, String outputFormat)
             throws DifferExceptions, IOException {
+        Path firstPath = Path.of(firstStringPath);
+        Path secondPath = Path.of(secondStringPath);
         checkFilepathAndFileIsNotEmptyExceptions(firstPath, secondPath);
 
         Map<String, Object> parsedMap1 = getParsedMap(firstPath);
@@ -28,6 +42,10 @@ public class Differ extends App {
         FormatterFactory formatter = Formatter.createFormatterByFormat(outputFormat);
 
         return formatter.format(parsedMap1, parsedMap2, keySet);
+    }
+
+    public static String generate(String firstStringPath, String secondStringPath) throws IOException, DifferExceptions {
+        return generate(firstStringPath, secondStringPath, "stylish");
     }
 
     private static String getAbsolutePathString(Path path) {

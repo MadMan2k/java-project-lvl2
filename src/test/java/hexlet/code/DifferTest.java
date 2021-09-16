@@ -5,16 +5,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.io.IOException;
-import java.nio.file.Path;
 
 class DifferTest {
-    private final Path pathTestFile1 = Path.of("src/test/resources/TestFile1.json");
-    private final Path pathTestFile2 = Path.of("src/test/resources/TestFile2.yml");
-    private final Path pathTestComplexFile3 = Path.of("src/test/resources/TestComplexFile3.json");
-    private final Path pathTestComplexFile4 = Path.of("src/test/resources/TestComplexFile4.json");
-    private final Path pathTestFileIsEmpty = Path.of("src/test/resources/TestFileEmpty.json");
-    private final Path pathNonValid = Path.of("non-valid-filepath");
-    private final Path pathTestFormatNotSupported = Path.of("src/test/resources/TestFormatNotSupported.txt");
+    private final String pathTestFile1 = "src/test/resources/TestFile1.json";
+    private final String pathTestFile2 = "src/test/resources/TestFile2.yml";
+    private final String pathTestComplexFile3 = "src/test/resources/TestComplexFile3.json";
+    private final String pathTestComplexFile4 = "src/test/resources/TestComplexFile4.json";
+    private final String pathTestFileIsEmpty = "src/test/resources/TestFileEmpty.json";
+    private final String pathNonValid = "non-valid-filepath";
+    private final String pathTestFormatNotSupported = "src/test/resources/TestFormatNotSupported.txt";
 
     @Test
     void testDifferStylish() throws DifferExceptions, IOException {
@@ -150,21 +149,21 @@ class DifferTest {
     @Test
     void testEmptyFileException() {
         assertThatThrownBy(() -> {
-            Differ.generate(pathTestFile1, pathTestFileIsEmpty, "");
+            Differ.generate(pathTestFile1, pathTestFileIsEmpty);
         }).isInstanceOf(DifferExceptions.class);
     }
 
     @Test
     void testBadFilepathException() {
         assertThatThrownBy(() -> {
-            Differ.generate(pathTestFile1, pathNonValid, "");
+            Differ.generate(pathTestFile1, pathNonValid);
         }).isInstanceOf(DifferExceptions.class);
     }
 
     @Test
     void testFileNotSupportedException() {
         assertThatThrownBy(() -> {
-            Differ.generate(pathTestFile1, pathTestFormatNotSupported, "");
+            Differ.generate(pathTestFile1, pathTestFormatNotSupported);
         }).isInstanceOf(DifferExceptions.class);
     }
 
