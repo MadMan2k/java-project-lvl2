@@ -53,7 +53,7 @@ class DifferTest {
     void testDifferJson() throws DifferExceptions, IOException {
         String expected = """
                 {
-                	"jsonDiff": [
+                \t"jsonDiff": [
                 	    {
                 			"field": "chars1",
                 			"oldValue": ["a", "b", "c"],
