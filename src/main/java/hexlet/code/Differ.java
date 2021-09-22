@@ -87,6 +87,11 @@ public class Differ extends App {
         String stringInputPath = getAbsolutePathString(path);
 //        ParserFactory parser = createParserByFormat(getFileNameFromStringPath(stringInputPath).split("\\.", 2)[1]);
         Parser parser = new Parser();
-        return parser.parse(stringInputPath);
+//        return parser.parse(stringInputPath);
+        return parser.parse(getContentFromFileByPath(path), getFileNameFromStringPath(stringInputPath).split("\\.", 2)[1]);
+    }
+
+    private static String getContentFromFileByPath (Path path) throws IOException {
+        return Files.readString(path);
     }
 }
