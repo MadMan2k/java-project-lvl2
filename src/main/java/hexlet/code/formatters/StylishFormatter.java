@@ -4,7 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
 
-public class StylishFormatter implements FormatterFactory {
+public class StylishFormatter implements Formatter {
     /**
      * Make stylish output.
      */

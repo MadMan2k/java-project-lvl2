@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class JsonFormatter implements FormatterFactory {
+public class JsonFormatter implements Formatter {
     /**
      * Make JSON output.
      */

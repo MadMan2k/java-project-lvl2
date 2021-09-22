@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
 
-public class PlainFormatter implements FormatterFactory {
+public class PlainFormatter implements Formatter {
     /**
      * Make plain output.
      */

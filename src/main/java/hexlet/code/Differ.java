@@ -1,6 +1,6 @@
 package hexlet.code;
 
-import hexlet.code.formatters.FormatterFactory;
+import hexlet.code.formatters.Formatter;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class Differ extends App {
         LinkedHashSet<String> keySet = Stream.concat(parsedMap1.keySet().stream(), parsedMap2.keySet().stream())
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
-        FormatterFactory formatter = FormatterProvider.createFormatterByFormat(outputFormat);
+        Formatter formatter = FormatterProvider.createFormatterByFormat(outputFormat);
 
         return formatter.format(parsedMap1, parsedMap2, keySet);
     }
