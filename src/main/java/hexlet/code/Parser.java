@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.Map;
 
 public class Parser {
+    /**
+     * Parser class for JSON and YAML parsers.
+     */
     public Map<String, Object> parse(String inputPath) throws IOException, DifferExceptions {
         ObjectMapper ob = getParser(inputPath);
         return ob.readValue(new File(inputPath),
