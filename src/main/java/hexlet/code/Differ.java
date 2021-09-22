@@ -13,17 +13,6 @@ import java.util.stream.Stream;
 
 public class Differ extends App {
 
-    public static void main(String[] args) {
-        try {
-            String outputFormat = "json";
-            String str = generate("src/test/resources/TestFile2.yml",
-                    "src/test/resources/TestComplexFile4.json", outputFormat);
-            System.out.println(str);
-        } catch (DifferExceptions | IOException d) {
-            System.out.println(d.getMessage());
-        }
-    }
-
     public static String generate(String firstStringPath, String secondStringPath, String outputFormat)
             throws DifferExceptions, IOException {
         Path firstPath = Path.of(firstStringPath);
@@ -73,21 +62,9 @@ public class Differ extends App {
         return pathParts[pathParts.length - 1];
     }
 
-//    private static ParserFactory createParserByFormat(String format) throws DifferExceptions {
-//        if (format.equalsIgnoreCase("json")) {
-//            return new JsonParser();
-//        } else if (format.equalsIgnoreCase("yml") || format.equalsIgnoreCase("yaml")) {
-//            return new YamlParser();
-//        } else {
-//            throw new DifferExceptions("." + format + " not supported. Only json/yml input allowed");
-//        }
-//    }
-
     private static Map<String, Object> getParsedMap(Path path) throws DifferExceptions, IOException {
         String stringInputPath = getAbsolutePathString(path);
-//        ParserFactory parser = createParserByFormat(getFileNameFromStringPath(stringInputPath).split("\\.", 2)[1]);
         Parser parser = new Parser();
-//        return parser.parse(stringInputPath);
         return parser.parse(getContentFromFileByPath(path), getFileNameFromStringPath(stringInputPath).
                 split("\\.", 2)[1]);
     }

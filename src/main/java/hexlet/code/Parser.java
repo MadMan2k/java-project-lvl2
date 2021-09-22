@@ -16,14 +16,11 @@ public class Parser {
      */
     public Map<String, Object> parse(String content, String inputFormat) throws IOException, DifferExceptions {
         ObjectMapper ob = getParser(inputFormat);
-//        return ob.readValue(new File(inputPath),
-//                new TypeReference<Map<String, Object>>() { });
         return ob.readValue(content,
                 new TypeReference<Map<String, Object>>() { });
     }
 
     private ObjectMapper getParser(String inputFormat) throws DifferExceptions {
-//        String format = Differ.getFileNameFromStringPath(inputFormat).split("\\.", 2)[1];
         if (inputFormat.equalsIgnoreCase("json")) {
             return new ObjectMapper();
         } else if (inputFormat.equalsIgnoreCase("yml") || inputFormat.equalsIgnoreCase("yaml")) {

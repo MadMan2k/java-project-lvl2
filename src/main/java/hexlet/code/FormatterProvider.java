@@ -13,16 +13,5 @@ public class FormatterProvider {
             case "json" -> new JsonFormatter();
             default -> throw new DifferExceptions(format + " not supported. Only stylish/plain/json output allowed");
         };
-
-
-//        if (format.equalsIgnoreCase("stylish")) {
-//            return new StylishFormatter();
-//        } else if (format.equalsIgnoreCase("plain")) {
-//            return new PlainFormatter();
-//        }   else if (format.equalsIgnoreCase("json")) {
-//            return new JsonFormatter();
-//        } else {
-//            throw new DifferExceptions(format + " not supported. Only stylish/plain/json output allowed");
-//        }
     }
 }
