@@ -10,7 +10,10 @@ import java.util.Map;
 
 public class Parser {
     /**
-     * Parser class for JSON and YAML parsers.
+     * @param inputPath - path to the input file
+     * @return parsed Map
+     * @throws IOException
+     * @throws DifferExceptions
      */
     public Map<String, Object> parse(String inputPath) throws IOException, DifferExceptions {
         ObjectMapper ob = getParser(inputPath);
