@@ -1,9 +1,6 @@
 package hexlet.code;
 
 import hexlet.code.formatters.FormatterFactory;
-import hexlet.code.parserFactory.JsonParser;
-import hexlet.code.parserFactory.ParserFactory;
-import hexlet.code.parserFactory.YamlParser;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +12,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Differ extends App {
+
+    public static void main(String[] args) {
+        try {
+            String outputFormat = "json";
+            String str = generate("src/test/resources/TestFile2.yml",
+                    "src/test/resources/TestComplexFile4.json", outputFormat);
+            System.out.println(str);
+        } catch (DifferExceptions | IOException d) {
+            System.out.println(d.getMessage());
+        }
+    }
 
     public static String generate(String firstStringPath, String secondStringPath, String outputFormat)
             throws DifferExceptions, IOException {
@@ -55,29 +63,30 @@ public class Differ extends App {
                 throw new DifferExceptions("Bad filepath " + p);
             }
             if (new File(String.valueOf(p)).length() == 0) {
-                throw new DifferExceptions(getFileNameFromPath(p) + " is empty");
+                throw new DifferExceptions(getFileNameFromStringPath(String.valueOf(p)) + " is empty");
             }
         }
     }
 
-    private static String getFileNameFromPath(Path path) {
-        String[] pathParts = String.valueOf(path).split("/");
+    public static String getFileNameFromStringPath(String stringPath) {
+        String[] pathParts = stringPath.split("/");
         return pathParts[pathParts.length - 1];
     }
 
-    private static ParserFactory createParserByFormat(String format) throws DifferExceptions {
-        if (format.equalsIgnoreCase("json")) {
-            return new JsonParser();
-        } else if (format.equalsIgnoreCase("yml") || format.equalsIgnoreCase("yaml")) {
-            return new YamlParser();
-        } else {
-            throw new DifferExceptions("." + format + " not supported. Only json/yml input allowed");
-        }
-    }
+//    private static ParserFactory createParserByFormat(String format) throws DifferExceptions {
+//        if (format.equalsIgnoreCase("json")) {
+//            return new JsonParser();
+//        } else if (format.equalsIgnoreCase("yml") || format.equalsIgnoreCase("yaml")) {
+//            return new YamlParser();
+//        } else {
+//            throw new DifferExceptions("." + format + " not supported. Only json/yml input allowed");
+//        }
+//    }
 
     private static Map<String, Object> getParsedMap(Path path) throws DifferExceptions, IOException {
         String stringInputPath = getAbsolutePathString(path);
-        ParserFactory parser = createParserByFormat(getFileNameFromPath(path).split("\\.", 2)[1]);
+//        ParserFactory parser = createParserByFormat(getFileNameFromStringPath(stringInputPath).split("\\.", 2)[1]);
+        Parser parser = new Parser();
         return parser.parse(stringInputPath);
     }
 }
