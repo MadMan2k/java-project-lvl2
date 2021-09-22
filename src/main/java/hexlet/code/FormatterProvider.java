@@ -5,7 +5,7 @@ import hexlet.code.formatters.JsonFormatter;
 import hexlet.code.formatters.PlainFormatter;
 import hexlet.code.formatters.StylishFormatter;
 
-public class Formatter {
+public class FormatterProvider {
     public static FormatterFactory createFormatterByFormat(String format) throws DifferExceptions {
         if (format.equalsIgnoreCase("stylish")) {
             return new StylishFormatter();

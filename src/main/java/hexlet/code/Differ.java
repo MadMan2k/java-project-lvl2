@@ -36,7 +36,7 @@ public class Differ extends App {
         LinkedHashSet<String> keySet = Stream.concat(parsedMap1.keySet().stream(), parsedMap2.keySet().stream())
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
-        FormatterFactory formatter = Formatter.createFormatterByFormat(outputFormat);
+        FormatterFactory formatter = FormatterProvider.createFormatterByFormat(outputFormat);
 
         return formatter.format(parsedMap1, parsedMap2, keySet);
     }
