@@ -16,7 +16,7 @@ public class Differ {
     public static void main(String[] args) {
         try {
             String outputFormat = "json";
-            String str = generate("src/test/resources/TestFileEmpty.json",
+            String str = generate("src/test/resources/TestFile2.yml",
                 "src/test/resources/TestComplexFile4.json", outputFormat);
             System.out.println(str);
         } catch (DifferExceptions | IOException d) {
@@ -61,15 +61,14 @@ public class Differ {
         }
     }
 
-    public static String getFileNameFromStringPath(String stringPath) {
+    public static String getFileExtension(String stringPath) {
         String[] pathParts = stringPath.split("/");
-        return pathParts[pathParts.length - 1];
+        return pathParts[pathParts.length - 1].split("\\.", 2)[1];
     }
 
     private static Map<String, Object> getParsedMap(Path path) throws DifferExceptions, IOException {
         String stringInputPath = path.toAbsolutePath().toString();
         Parser parser = new Parser();
-        return parser.parse(Files.readString(path), getFileNameFromStringPath(stringInputPath).
-                split("\\.", 2)[1]);
+        return parser.parse(Files.readString(path), getFileExtension(stringInputPath));
     }
 }
