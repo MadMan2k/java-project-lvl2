@@ -143,22 +143,22 @@ class DifferTest {
 //                \t\t}
 //                \t]
 //                }""";
-        String expected = "{\"jsonDiff\":[{\"field\":\"chars1\",\"oldValue\":[\"a\",\"b\",\"c\"]," +
-                "\"newValue\":[\"a\",\"b\",\"c\"],\"status\":\"unaffected\"},{\"field\":\"chars2\"," +
-                "\"oldValue\":[\"d\",\"e\",\"f\"],\"newValue\":false,\"status\":\"updated\"}," +
-                "{\"field\":\"checked\",\"oldValue\":false,\"newValue\":true,\"status\":\"updated\"}," +
-                "{\"field\":\"default\",\"oldValue\":null,\"newValue\":[\"value1\",\"value2\"]," +
-                "\"status\":\"updated\"},{\"field\":\"id\",\"oldValue\":45,\"newValue\":null," +
-                "\"status\":\"updated\"},{\"field\":\"key1\",\"oldValue\":\"value1\",\"status\":\"removed\"}," +
-                "{\"field\":\"key2\",\"newValue\":\"value2\",\"status\":\"added\"},{\"field\":\"numbers1\"," +
-                "\"oldValue\":[1,2,3,4],\"newValue\":[1,2,3,4],\"status\":\"unaffected\"},{\"field\":\"numbers2\"," +
-                "\"oldValue\":[2,3,4,5],\"newValue\":[22,33,44,55],\"status\":\"updated\"},{\"field\":\"numbers3\"," +
-                "\"oldValue\":[3,4,5],\"status\":\"removed\"},{\"field\":\"numbers4\",\"newValue\":[4,5,6]," +
-                "\"status\":\"added\"},{\"field\":\"obj1\",\"newValue\":{\"nestedKey\":\"value\"," +
-                "\"isNested\":true},\"status\":\"added\"},{\"field\":\"setting1\",\"oldValue\":\"Some value\"," +
-                "\"newValue\":\"Another value\",\"status\":\"updated\"},{\"field\":\"setting2\"," +
-                "\"oldValue\":200,\"newValue\":300,\"status\":\"updated\"},{\"field\":\"setting3\"," +
-                "\"oldValue\":true,\"newValue\":\"none\",\"status\":\"updated\"}]}";
+        String expected = "{\"jsonDiff\":[{\"field\":\"chars1\",\"oldValue\":[\"a\",\"b\",\"c\"],"
+                + "\"newValue\":[\"a\",\"b\",\"c\"],\"status\":\"unaffected\"},{\"field\":\"chars2\","
+                + "\"oldValue\":[\"d\",\"e\",\"f\"],\"newValue\":false,\"status\":\"updated\"},"
+                + "{\"field\":\"checked\",\"oldValue\":false,\"newValue\":true,\"status\":\"updated\"},"
+                + "{\"field\":\"default\",\"oldValue\":null,\"newValue\":[\"value1\",\"value2\"],"
+                + "\"status\":\"updated\"},{\"field\":\"id\",\"oldValue\":45,\"newValue\":null,"
+                + "\"status\":\"updated\"},{\"field\":\"key1\",\"oldValue\":\"value1\",\"status\":\"removed\"},"
+                + "{\"field\":\"key2\",\"newValue\":\"value2\",\"status\":\"added\"},{\"field\":\"numbers1\","
+                + "\"oldValue\":[1,2,3,4],\"newValue\":[1,2,3,4],\"status\":\"unaffected\"},{\"field\":\"numbers2\","
+                + "\"oldValue\":[2,3,4,5],\"newValue\":[22,33,44,55],\"status\":\"updated\"},{\"field\":\"numbers3\","
+                + "\"oldValue\":[3,4,5],\"status\":\"removed\"},{\"field\":\"numbers4\",\"newValue\":[4,5,6],"
+                + "\"status\":\"added\"},{\"field\":\"obj1\",\"newValue\":{\"nestedKey\":\"value\","
+                + "\"isNested\":true},\"status\":\"added\"},{\"field\":\"setting1\",\"oldValue\":\"Some value\","
+                + "\"newValue\":\"Another value\",\"status\":\"updated\"},{\"field\":\"setting2\","
+                + "\"oldValue\":200,\"newValue\":300,\"status\":\"updated\"},{\"field\":\"setting3\","
+                + "\"oldValue\":true,\"newValue\":\"none\",\"status\":\"updated\"}]}";
         assertThat(Differ.generate(pathTestComplexFile3, pathTestComplexFile4, "json")).isEqualTo(expected);
     }
 
