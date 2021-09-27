@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,7 +34,7 @@ public class Differ {
         Map<String, Object> parsedContent1 = getParsedMap(firstPath);
         Map<String, Object> parsedContent2 = getParsedMap(secondPath);
 
-        LinkedHashSet<String> keys = Stream.concat(parsedContent1.keySet().stream(), parsedContent2.keySet().stream())
+        Set<String> keys = Stream.concat(parsedContent1.keySet().stream(), parsedContent2.keySet().stream())
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
         Formatter formatter = FormatterProvider.createFormatterByFormat(outputFormat);

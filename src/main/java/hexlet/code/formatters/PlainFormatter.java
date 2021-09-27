@@ -5,13 +5,14 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class PlainFormatter implements Formatter {
     /**
      * Make plain output.
      */
     @Override
-    public String format(Map<String, Object> firstMap, Map<String, Object> secondMap, LinkedHashSet<String> keySet) {
+    public String format(Map<String, Object> firstMap, Map<String, Object> secondMap, Set<String> keySet) {
         StringBuilder sb = new StringBuilder();
 
         for (String keyElement : keySet) {

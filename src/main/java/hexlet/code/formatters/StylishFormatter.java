@@ -3,13 +3,14 @@ package hexlet.code.formatters;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class StylishFormatter implements Formatter {
     /**
      * Make stylish output.
      */
     @Override
-    public String format(Map<String, Object> firstMap, Map<String, Object> secondMap, LinkedHashSet<String> keySet) {
+    public String format(Map<String, Object> firstMap, Map<String, Object> secondMap, Set<String> keySet) {
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
 
