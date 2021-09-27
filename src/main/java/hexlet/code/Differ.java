@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class Differ {
 
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         try {
             String outputFormat = "json";
             String str = generate("src/test/resources/TestComplexFile3.json",
@@ -22,7 +22,7 @@ public class Differ {
         } catch (DifferExceptions | IOException d) {
             System.out.println(d.getMessage());
         }
-     }
+    }
 
     public static String generate(String firstStringPath, String secondStringPath, String outputFormat)
             throws DifferExceptions, IOException {
