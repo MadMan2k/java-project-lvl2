@@ -6,12 +6,13 @@ import hexlet.code.formatters.PlainFormatter;
 import hexlet.code.formatters.StylishFormatter;
 
 public class FormatterProvider {
-    public static Formatter createFormatterByFormat(String format) throws DifferExceptions {
+    public static Formatter createFormatterByFormat(String format) {
         return switch (format) {
             case "stylish" -> new StylishFormatter();
             case "plain" -> new PlainFormatter();
             case "json" -> new JsonFormatter();
-            default -> throw new DifferExceptions(format + " not supported. Only stylish/plain/json output allowed");
+            default -> throw new IllegalArgumentException(format
+                    + " not supported. Only stylish/plain/json output allowed");
         };
     }
 }

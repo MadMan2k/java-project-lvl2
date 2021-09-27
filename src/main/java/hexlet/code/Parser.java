@@ -14,19 +14,19 @@ public class Parser {
      * @param inputFormat - native format of the input data. Only JSON/YAML allowed
      * @return result of parsing in Map
      */
-    public Map<String, Object> parse(String content, String inputFormat) throws IOException, DifferExceptions {
+    public Map<String, Object> parse(String content, String inputFormat) throws IOException {
         ObjectMapper ob = getParser(inputFormat);
         return ob.readValue(content,
                 new TypeReference<Map<String, Object>>() { });
     }
 
-    private ObjectMapper getParser(String inputFormat) throws DifferExceptions {
+    private ObjectMapper getParser(String inputFormat) {
         if (inputFormat.equalsIgnoreCase("json")) {
             return new ObjectMapper();
         } else if (inputFormat.equalsIgnoreCase("yml") || inputFormat.equalsIgnoreCase("yaml")) {
             return new ObjectMapper(new YAMLFactory());
         } else {
-            throw new DifferExceptions("." + inputFormat + " not supported. Only json/yml input allowed");
+            throw new IllegalArgumentException("." + inputFormat + " not supported. Only json/yml input allowed");
         }
     }
 }

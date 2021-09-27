@@ -29,10 +29,9 @@ public class App implements Callable {
         try {
             String diffString = Differ.generate(pathToFirstString, pathToSecondString, outputFormat);
             System.out.println(diffString);
-        } catch (DifferExceptions | IOException d) {
+        } catch (IOException d) {
             System.out.println(d.getMessage());
         }
-
         return null;
     }
 

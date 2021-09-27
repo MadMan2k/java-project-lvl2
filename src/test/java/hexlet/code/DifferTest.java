@@ -16,7 +16,7 @@ class DifferTest {
     private final String pathTestFormatNotSupported = "src/test/resources/TestFormatNotSupported.txt";
 
     @Test
-    void testDifferStylish() throws DifferExceptions, IOException {
+    void testDifferStylish() throws IOException {
         String expected = """
                 {
                   - follow: false
@@ -30,7 +30,7 @@ class DifferTest {
     }
 
     @Test
-    void testDifferPlain() throws DifferExceptions, IOException {
+    void testDifferPlain() throws IOException {
         String expected = """
                 Property 'chars2' was updated. From [complex value] to false
                 Property 'checked' was updated. From false to true
@@ -49,7 +49,7 @@ class DifferTest {
     }
 
     @Test
-    void testDifferJson() throws DifferExceptions, IOException {
+    void testDifferJson() throws IOException {
         String expected = """
                 {
                 \t"jsonDiff": [
@@ -150,27 +150,27 @@ class DifferTest {
     void testEmptyFileException() {
         assertThatThrownBy(() -> {
             Differ.generate(pathTestFile1, pathTestFileIsEmpty);
-        }).isInstanceOf(DifferExceptions.class);
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void testBadFilepathException() {
         assertThatThrownBy(() -> {
             Differ.generate(pathTestFile1, pathNonValid);
-        }).isInstanceOf(DifferExceptions.class);
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void testFileNotSupportedException() {
         assertThatThrownBy(() -> {
             Differ.generate(pathTestFile1, pathTestFormatNotSupported);
-        }).isInstanceOf(DifferExceptions.class);
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void testFormatNotSupportedException() {
         assertThatThrownBy(() -> {
             Differ.generate(pathTestFile1, pathTestFile2, "notSupported");
-        }).isInstanceOf(DifferExceptions.class);
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 }

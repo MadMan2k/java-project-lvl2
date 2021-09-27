@@ -17,16 +17,16 @@ public class Differ {
     public static void main(String[] args) {
         try {
             String outputFormat = "json";
-            String str = generate("src/test/resources/TestComplexFile4.json",
+            String str = generate("src/test/resources/TestFileEmpty.json",
                 "src/test/resources/TestComplexFile4.json", outputFormat);
             System.out.println(str);
-        } catch (DifferExceptions | IOException d) {
+        } catch (IOException d) {
             System.out.println(d.getMessage());
         }
     }
 
     public static String generate(String firstStringPath, String secondStringPath, String outputFormat)
-            throws DifferExceptions, IOException {
+            throws IOException {
         Path firstPath = Path.of(firstStringPath);
         Path secondPath = Path.of(secondStringPath);
         checkFilepathAndFileIsNotEmptyExceptions(firstPath, secondPath);
@@ -43,21 +43,21 @@ public class Differ {
     }
 
     public static String generate(String firstStringPath, String secondStringPath)
-            throws IOException, DifferExceptions {
+            throws IOException {
         return generate(firstStringPath, secondStringPath, "stylish");
     }
 
-    private static void checkFilepathAndFileIsNotEmptyExceptions(Path path1, Path path2) throws DifferExceptions {
+    private static void checkFilepathAndFileIsNotEmptyExceptions(Path path1, Path path2) {
         Path[] pathsArray = new Path[2];
         pathsArray[0] = path1;
         pathsArray[1] = path2;
 
         for (Path p : pathsArray) {
             if (!Files.exists(p)) {
-                throw new DifferExceptions("Bad filepath " + p);
+                throw new IllegalArgumentException("Bad filepath " + p);
             }
             if (new File(String.valueOf(p)).length() == 0) {
-                throw new DifferExceptions(p + " is empty");
+                throw new IllegalArgumentException(p + " is empty");
             }
         }
     }
@@ -67,7 +67,7 @@ public class Differ {
         return pathParts[pathParts.length - 1].split("\\.", 2)[1];
     }
 
-    private static Map<String, Object> getParsedMap(Path path) throws DifferExceptions, IOException {
+    private static Map<String, Object> getParsedMap(Path path) throws IOException {
         String pathAsString = path.toAbsolutePath().toString();
         Parser parser = new Parser();
         return parser.parse(Files.readString(path), getFileExtension(pathAsString));
