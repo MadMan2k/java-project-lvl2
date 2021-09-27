@@ -69,11 +69,7 @@ public class Differ {
     private static Map<String, Object> getParsedMap(Path path) throws DifferExceptions, IOException {
         String stringInputPath = path.toAbsolutePath().toString();
         Parser parser = new Parser();
-        return parser.parse(getContentFromFileByPath(path), getFileNameFromStringPath(stringInputPath).
+        return parser.parse(Files.readString(path), getFileNameFromStringPath(stringInputPath).
                 split("\\.", 2)[1]);
-    }
-
-    private static String getContentFromFileByPath(Path path) throws IOException {
-        return Files.readString(path);
     }
 }
