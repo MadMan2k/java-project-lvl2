@@ -16,7 +16,7 @@ public class Differ {
     public static void main(String[] args) {
         try {
             String outputFormat = "json";
-            String str = generate("src/test/resources/TestComplexFile3.json",
+            String str = generate("src/test/resources/TestFileEmpty.json",
                 "src/test/resources/TestComplexFile4.json", outputFormat);
             System.out.println(str);
         } catch (DifferExceptions | IOException d) {
@@ -56,7 +56,7 @@ public class Differ {
                 throw new DifferExceptions("Bad filepath " + p);
             }
             if (new File(String.valueOf(p)).length() == 0) {
-                throw new DifferExceptions(getFileNameFromStringPath(String.valueOf(p)) + " is empty");
+                throw new DifferExceptions(p + " is empty");
             }
         }
     }
