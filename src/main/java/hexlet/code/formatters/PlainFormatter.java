@@ -1,6 +1,7 @@
 package hexlet.code.formatters;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -39,8 +40,8 @@ public class PlainFormatter implements Formatter {
             return null;
         }
         String inputValueString = inputValue.toString();
-        if (inputValue instanceof ArrayList
-                || inputValue instanceof LinkedHashMap) {
+        if (inputValue instanceof Collection
+                || inputValue instanceof Map) {
             return "[complex value]";
         }
         if (inputValue instanceof String) {
