@@ -6,6 +6,8 @@ import java.util.Objects;
 import java.util.Set;
 
 public class PlainFormatter implements Formatter {
+    private static final String PROPERTY = "Property '";
+    private static final String NEW_LINE = "\n";
     /**
      * Make plain output.
      */
@@ -15,19 +17,19 @@ public class PlainFormatter implements Formatter {
 
         for (String keyElement : keySet) {
             if (!firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)) {
-                sb.append("Property '").append(keyElement).append("' was added with value: ").
-                        append(formatValue(secondMap.get(keyElement))).append("\n");
+                sb.append(PROPERTY).append(keyElement).append("' was added with value: ").
+                        append(formatValue(secondMap.get(keyElement))).append(NEW_LINE);
                 continue;
             }
             if (firstMap.containsKey(keyElement) && !secondMap.containsKey(keyElement)) {
-                sb.append("Property '").append(keyElement).append("' was removed").append("\n");
+                sb.append(PROPERTY).append(keyElement).append("' was removed").append(NEW_LINE);
                 continue;
             }
             if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
                     && !Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
-                sb.append("Property '").append(keyElement).append("' was updated. From ").
+                sb.append(PROPERTY).append(keyElement).append("' was updated. From ").
                         append(formatValue(firstMap.get(keyElement))).append(" to ").
-                        append(formatValue(secondMap.get(keyElement))).append("\n");
+                        append(formatValue(secondMap.get(keyElement))).append(NEW_LINE);
             }
         }
         return sb.toString().trim();
