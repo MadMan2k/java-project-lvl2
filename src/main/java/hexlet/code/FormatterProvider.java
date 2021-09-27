@@ -1,5 +1,6 @@
 package hexlet.code;
 
+//import hexlet.code.formatters.FormattedJsonFormatter;
 import hexlet.code.formatters.Formatter;
 import hexlet.code.formatters.JsonFormatter;
 import hexlet.code.formatters.PlainFormatter;
@@ -11,6 +12,7 @@ public class FormatterProvider {
             case "stylish" -> new StylishFormatter();
             case "plain" -> new PlainFormatter();
             case "json" -> new JsonFormatter();
+//            case "jsonform" -> new FormattedJsonFormatter();  // look FormattedJsonFormatter.java
             default -> throw new IllegalArgumentException(format
                     + " not supported. Only stylish/plain/json output allowed");
         };

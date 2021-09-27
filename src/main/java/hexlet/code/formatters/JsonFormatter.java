@@ -1,97 +1,64 @@
 package hexlet.code.formatters;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 public class JsonFormatter implements Formatter {
+    private static final String OLD_VALUE = "oldValue";
+    private static final String NEW_VALUE = "newValue";
+    private static final String STATUS = "status";
+    private static final String NEW_LINE = "\n";
     /**
      * Make JSON output.
      */
     @Override
-    public String format(Map<String, Object> firstMap, Map<String, Object> secondMap, Set<String> keySet) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\n").append("\t\"jsonDiff\": [\n");
+    public String format(Map<String, Object> firstMap, Map<String, Object> secondMap,
+                         Set<String> keySet) throws JsonProcessingException {
+        int counter = -1;
+        Map<String, Object[]> mapOfFinal = new LinkedHashMap<>();
+        Object[] maps = new Object[keySet.size()];
+        String finalMapStringValue = "jsonDiff";
 
         for (String keyElement : keySet) {
-            StringBuilder field = new StringBuilder();
-            field.append("\t\t{\n").append("\t\t\t\"field\": \"").append(keyElement).append("\",\n");
-
-            StringBuilder oldValue = new StringBuilder();
-            oldValue.append("\t\t\t\"oldValue\": ").append(getValueInJsonFormat(firstMap.get(keyElement))).
-                    append(",\n");
-
-            StringBuilder newValue = new StringBuilder();
-            newValue.append("\t\t\t\"newValue\": ").append(getValueInJsonFormat(secondMap.get(keyElement))).
-                    append(",\n");
-
-            String status = "\t\t\t\"status\": \"%s\"\n\t\t},\n";
+            counter++;
+            Map<String, Object> tempMap = new LinkedHashMap<>();
+            tempMap.put("field", keyElement);
 
             if (!firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)) {
-                sb.append(field).append(newValue).append(status.formatted("added"));
+                tempMap.put(NEW_VALUE, secondMap.get(keyElement));
+                tempMap.put(STATUS, "added");
+                maps[counter] = tempMap;
                 continue;
             }
             if (firstMap.containsKey(keyElement) && !secondMap.containsKey(keyElement)) {
-                sb.append(field).append(oldValue).append(status.formatted("removed"));
+                tempMap.put(OLD_VALUE, firstMap.get(keyElement));
+                tempMap.put(STATUS, "removed");
+                maps[counter] = tempMap;
                 continue;
             }
             if (Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
-                sb.append(field).append(oldValue).append(newValue).append(status.formatted("unaffected"));
+                tempMap.put(OLD_VALUE, firstMap.get(keyElement));
+                tempMap.put(NEW_VALUE, secondMap.get(keyElement));
+                tempMap.put(STATUS, "unaffected");
+                maps[counter] = tempMap;
                 continue;
             }
             if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
                     && !Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
-                sb.append(field).append(oldValue).append(newValue).append(status.formatted("updated"));
+                tempMap.put(OLD_VALUE, firstMap.get(keyElement));
+                tempMap.put(NEW_VALUE, secondMap.get(keyElement));
+                tempMap.put(STATUS, "updated");
+                maps[counter] = tempMap;
             }
         }
-        sb.setLength(sb.length() - 2);
-        sb.append("\n\t]\n}");
-        return sb.toString();
-    }
-
-    private static String getValueInJsonFormat(Object inputValue) {
-        if (inputValue == null) {
-            return null;
-        }
-        String clazz = inputValue.getClass().getSimpleName();
-        switch (clazz) {
-            case "Boolean":
-            case "Integer":
-                return inputValue.toString();
-            case "ArrayList":
-                return getObjectArrayListInJsonFormat(inputValue);
-            case "LinkedHashMap":
-                return getObjectLinkedHashMapInJsonFormat(inputValue);
-            default:
-                return "\"" + inputValue.toString() + "\"";
-        }
-    }
-
-    private static String getObjectArrayListInJsonFormat(Object inputValue) {
-        List<Object> list = (List<Object>) inputValue;
-        StringBuilder arrListSb = new StringBuilder();
-        arrListSb.append("[");
-        for (Object o : list) {
-            arrListSb.append(getValueInJsonFormat(o)).append(", ");
-        }
-        arrListSb.setLength(arrListSb.length() - 2);
-        arrListSb.append("]");
-        return arrListSb.toString();
-    }
-
-    private static String getObjectLinkedHashMapInJsonFormat(Object inputValue) {
-        Map<Object, Object> map = (LinkedHashMap<Object, Object>) inputValue;
-        StringBuilder lHMSb = new StringBuilder();
-        lHMSb.append("{\n");
-        for (Map.Entry<Object, Object> e : map.entrySet()) {
-            lHMSb.append("\t\t\t\t").append(getValueInJsonFormat(e.getKey())).append(": ").
-                    append(getValueInJsonFormat(e.getValue())).append(",\n");
-        }
-        lHMSb.setLength(lHMSb.length() - 2);
-        lHMSb.append("\n\t\t\t}");
-        return lHMSb.toString();
+        mapOfFinal.put(finalMapStringValue, maps);
+        ObjectMapper ob = new ObjectMapper();
+        return ob.writeValueAsString(mapOfFinal);
     }
 }
