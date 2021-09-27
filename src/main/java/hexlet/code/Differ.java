@@ -30,15 +30,15 @@ public class Differ {
         Path secondPath = Path.of(secondStringPath);
         checkFilepathAndFileIsNotEmptyExceptions(firstPath, secondPath);
 
-        Map<String, Object> parsedMap1 = getParsedMap(firstPath);
-        Map<String, Object> parsedMap2 = getParsedMap(secondPath);
+        Map<String, Object> parsedContent1 = getParsedMap(firstPath);
+        Map<String, Object> parsedContent2 = getParsedMap(secondPath);
 
-        LinkedHashSet<String> keySet = Stream.concat(parsedMap1.keySet().stream(), parsedMap2.keySet().stream())
+        LinkedHashSet<String> keys = Stream.concat(parsedContent1.keySet().stream(), parsedContent2.keySet().stream())
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
         Formatter formatter = FormatterProvider.createFormatterByFormat(outputFormat);
 
-        return formatter.format(parsedMap1, parsedMap2, keySet);
+        return formatter.format(parsedContent1, parsedContent2, keys);
     }
 
     public static String generate(String firstStringPath, String secondStringPath)
