@@ -46,13 +46,6 @@ public class Differ {
         return generate(firstStringPath, secondStringPath, "stylish");
     }
 
-    private static String getAbsolutePathString(Path path) {
-        if (!path.isAbsolute()) {
-            path = path.toAbsolutePath();
-        }
-        return path.toString();
-    }
-
     private static void checkFilepathAndFileIsNotEmptyExceptions(Path path1, Path path2) throws DifferExceptions {
         Path[] pathsArray = new Path[2];
         pathsArray[0] = path1;
@@ -74,7 +67,7 @@ public class Differ {
     }
 
     private static Map<String, Object> getParsedMap(Path path) throws DifferExceptions, IOException {
-        String stringInputPath = getAbsolutePathString(path);
+        String stringInputPath = path.toAbsolutePath().toString();
         Parser parser = new Parser();
         return parser.parse(getContentFromFileByPath(path), getFileNameFromStringPath(stringInputPath).
                 split("\\.", 2)[1]);
