@@ -17,7 +17,7 @@ public class Differ {
     public static void main(String[] args) {
         try {
             String outputFormat = "json";
-            String str = generate("src/test/resources/TestFile2.yml",
+            String str = generate("src/test/resources/TestComplexFile4.json",
                 "src/test/resources/TestComplexFile4.json", outputFormat);
             System.out.println(str);
         } catch (DifferExceptions | IOException d) {
