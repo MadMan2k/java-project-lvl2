@@ -28,7 +28,8 @@ public class StylishFormatter implements Formatter {
                 continue;
             }
             if (Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
-                sb.append(UNAFFECTED).append(keyElement).append(COLON).append(firstMap.get(keyElement)).append(NEW_LINE);
+                sb.append(UNAFFECTED).append(keyElement).append(COLON).append(firstMap.get(keyElement)).
+                        append(NEW_LINE);
                 continue;
             }
             if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
