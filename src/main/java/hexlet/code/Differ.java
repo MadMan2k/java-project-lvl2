@@ -6,13 +6,25 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Differ {
+
+     public static void main(String[] args) throws IOException {
+         String outputFormat = "stylish";
+         String str = generate("src/test/resources/TestComplexFile3.json",
+                 "src/test/resources/TestComplexFile4.json", outputFormat);
+         System.out.println(str);
+     }
+
 
     public static String generate(String firstStringPath, String secondStringPath, String outputFormat)
             throws IOException {
@@ -28,7 +40,9 @@ public class Differ {
                 .collect(Collectors.toCollection(LinkedHashSet::new));
         Formatter formatter = FormatterProvider.createFormatterByFormat(outputFormat);
 
-        return formatter.format(parsedContent1, parsedContent2, keys);
+        List<Map<String, Object>> differences = getDifferences(parsedContent1, parsedContent2, keys);
+
+        return formatter.format(differences);
     }
 
     public static String generate(String firstStringPath, String secondStringPath)
@@ -60,5 +74,40 @@ public class Differ {
         String pathAsString = path.toAbsolutePath().toString();
         Parser parser = new Parser();
         return parser.parse(Files.readString(path), getFileExtension(pathAsString));
+    }
+
+    private static List<Map<String, Object>> getDifferences(Map<String, Object> firstMap, Map<String, Object> secondMap,
+                                                      Set<String> keySet) {
+        String OLD_VALUE = "oldValue";
+        String NEW_VALUE = "newValue";
+        String STATUS = "status";
+
+        List<Map<String, Object>> differences = new LinkedList<>();
+        for (String keyElement : keySet) {
+            Map<String, Object> differencesByElement = new HashMap<>();
+            differencesByElement.put("field", keyElement);
+            if (!firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)) {
+                differencesByElement.put(NEW_VALUE, secondMap.get(keyElement));
+                differencesByElement.put(STATUS, "added");
+            }
+            if (firstMap.containsKey(keyElement) && !secondMap.containsKey(keyElement)) {
+                differencesByElement.put(OLD_VALUE, firstMap.get(keyElement));
+                differencesByElement.put(STATUS, "removed");
+            }
+            if (Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
+                differencesByElement.put(OLD_VALUE, firstMap.get(keyElement));
+                differencesByElement.put(NEW_VALUE, secondMap.get(keyElement));
+                differencesByElement.put(STATUS, "unaffected");
+            }
+            if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
+                    && !Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
+                differencesByElement.put(OLD_VALUE, firstMap.get(keyElement));
+                differencesByElement.put(NEW_VALUE, secondMap.get(keyElement));
+                differencesByElement.put(STATUS, "updated");
+            }
+            differences.add(differencesByElement);
+        }
+
+        return differences;
     }
 }

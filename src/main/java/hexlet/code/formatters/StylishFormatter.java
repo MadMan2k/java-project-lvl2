@@ -1,10 +1,12 @@
 package hexlet.code.formatters;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 
 public class StylishFormatter implements Formatter {
+    private static final String FIELD = "field";
+    private static final String OLD_VALUE = "oldValue";
+    private static final String NEW_VALUE = "newValue";
     private static final String ADDED = "  + ";
     private static final String REMOVED = "  - ";
     private static final String UNAFFECTED = "    ";
@@ -14,28 +16,24 @@ public class StylishFormatter implements Formatter {
      * Make stylish output.
      */
     @Override
-    public String format(Map<String, Object> firstMap, Map<String, Object> secondMap, Set<String> keySet) {
+    public String format(List<Map<String, Object>> differences) {
         StringBuilder sb = new StringBuilder();
         sb.append("{").append(NEW_LINE);
 
-        for (String keyElement : keySet) {
-            if (!firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)) {
-                sb.append(ADDED).append(keyElement).append(COLON).append(secondMap.get(keyElement)).append(NEW_LINE);
-                continue;
-            }
-            if (firstMap.containsKey(keyElement) && !secondMap.containsKey(keyElement)) {
-                sb.append(REMOVED).append(keyElement).append(COLON).append(firstMap.get(keyElement)).append(NEW_LINE);
-                continue;
-            }
-            if (Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
-                sb.append(UNAFFECTED).append(keyElement).append(COLON).append(firstMap.get(keyElement)).
+        for(Map<String, Object> map : differences) {
+            switch (map.get("status").toString()) {
+                case "added" -> sb.append(ADDED).append(map.get(FIELD)).append(COLON).append(map.get(NEW_VALUE)).
                         append(NEW_LINE);
-                continue;
-            }
-            if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
-                    && !Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
-                sb.append(REMOVED).append(keyElement).append(COLON).append(firstMap.get(keyElement)).append(NEW_LINE);
-                sb.append(ADDED).append(keyElement).append(COLON).append(secondMap.get(keyElement)).append(NEW_LINE);
+                case "removed" -> sb.append(REMOVED).append(map.get(FIELD)).append(COLON).append(map.get(OLD_VALUE)).
+                        append(NEW_LINE);
+                case "unaffected" -> sb.append(UNAFFECTED).append(map.get(FIELD)).append(COLON).append(map.get(OLD_VALUE)).
+                        append(NEW_LINE);
+                case "updated" -> {
+                    sb.append(REMOVED).append(map.get(FIELD)).append(COLON).append(map.get(OLD_VALUE)).append(NEW_LINE);
+                    sb.append(ADDED).append(map.get(FIELD)).append(COLON).append(map.get(NEW_VALUE)).append(NEW_LINE);
+                }
+                default -> throw new IllegalArgumentException (map.get("status").toString()
+                        + " is bad status. StylishFormatter error");
             }
         }
         sb.append("}");
