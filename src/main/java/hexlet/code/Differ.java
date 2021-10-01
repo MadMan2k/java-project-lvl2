@@ -29,9 +29,7 @@ public class Differ {
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
         Formatter formatter = FormatterProvider.createFormatterByFormat(outputFormat);
-
         List<Map<String, Object>> differences = getDifferences(parsedContent1, parsedContent2, keys);
-
         return formatter.format(differences);
     }
 
@@ -51,7 +49,7 @@ public class Differ {
         return parser.parse(Files.readString(path), getFileExtension(pathAsString));
     }
 
-    private static List<Map<String, Object>> getDifferences(Map<String, Object> firstMap, Map<String, Object> secondMap,
+    public static List<Map<String, Object>> getDifferences(Map<String, Object> firstMap, Map<String, Object> secondMap,
                                                       Set<String> keySet) {
         String oldValue = "oldValue";
         String newValue = "newValue";
