@@ -17,17 +17,18 @@ public class PlainFormatter implements Formatter {
     public String format(List<Map<String, Object>> differences) {
         StringBuilder sb = new StringBuilder();
 
-        for(Map<String, Object> map : differences) {
+        for (Map<String, Object> map : differences) {
             if (map.get("status").toString().equals("unaffected")) {
                 continue;
             }
             sb.append(PROPERTY).append(map.get(FIELD));
             switch (map.get("status").toString()) {
-                case "added" -> sb.append("' was added with value: ").append(formatValue(map.get(NEW_VALUE))).append(NEW_LINE);
+                case "added" -> sb.append("' was added with value: ").append(formatValue(map.get(NEW_VALUE))).
+                        append(NEW_LINE);
                 case "removed" -> sb.append("' was removed").append(NEW_LINE);
                 case "updated" -> sb.append("' was updated. From ").append(formatValue(map.get(OLD_VALUE))).
                         append(" to ").append(formatValue(map.get(NEW_VALUE))).append(NEW_LINE);
-                default -> throw new IllegalArgumentException (map.get("status").toString()
+                default -> throw new IllegalArgumentException(map.get("status").toString()
                         + " is bad status. PlainFormatter error");
             }
         }

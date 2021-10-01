@@ -78,32 +78,32 @@ public class Differ {
 
     private static List<Map<String, Object>> getDifferences(Map<String, Object> firstMap, Map<String, Object> secondMap,
                                                       Set<String> keySet) {
-        String OLD_VALUE = "oldValue";
-        String NEW_VALUE = "newValue";
-        String STATUS = "status";
+        String oldValue = "oldValue";
+        String newValue = "newValue";
+        String status = "status";
 
         List<Map<String, Object>> differences = new LinkedList<>();
         for (String keyElement : keySet) {
             Map<String, Object> differencesByElement = new HashMap<>();
             differencesByElement.put("field", keyElement);
             if (!firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)) {
-                differencesByElement.put(NEW_VALUE, secondMap.get(keyElement));
-                differencesByElement.put(STATUS, "added");
+                differencesByElement.put(newValue, secondMap.get(keyElement));
+                differencesByElement.put(status, "added");
             }
             if (firstMap.containsKey(keyElement) && !secondMap.containsKey(keyElement)) {
-                differencesByElement.put(OLD_VALUE, firstMap.get(keyElement));
-                differencesByElement.put(STATUS, "removed");
+                differencesByElement.put(oldValue, firstMap.get(keyElement));
+                differencesByElement.put(status, "removed");
             }
             if (Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
-                differencesByElement.put(OLD_VALUE, firstMap.get(keyElement));
-                differencesByElement.put(NEW_VALUE, secondMap.get(keyElement));
-                differencesByElement.put(STATUS, "unaffected");
+                differencesByElement.put(oldValue, firstMap.get(keyElement));
+                differencesByElement.put(newValue, secondMap.get(keyElement));
+                differencesByElement.put(status, "unaffected");
             }
             if (firstMap.containsKey(keyElement) && secondMap.containsKey(keyElement)
                     && !Objects.equals(firstMap.get(keyElement), secondMap.get(keyElement))) {
-                differencesByElement.put(OLD_VALUE, firstMap.get(keyElement));
-                differencesByElement.put(NEW_VALUE, secondMap.get(keyElement));
-                differencesByElement.put(STATUS, "updated");
+                differencesByElement.put(oldValue, firstMap.get(keyElement));
+                differencesByElement.put(newValue, secondMap.get(keyElement));
+                differencesByElement.put(status, "updated");
             }
             differences.add(differencesByElement);
         }

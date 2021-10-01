@@ -22,7 +22,7 @@ public class JsonFormatter implements Formatter {
         String jsonAsMapKey = "jsonDiff";
         Object[] jsonAsMapValues = new Object[differences.size()];
 
-        for(Map<String, Object> map : differences) {
+        for (Map<String, Object> map : differences) {
             Map<String, Object> jsonAsMapValue = new LinkedHashMap<>();
             counter++;
             jsonAsMapValue.put("field", map.get("field"));
@@ -33,7 +33,7 @@ public class JsonFormatter implements Formatter {
                     jsonAsMapValue.put(OLD_VALUE, map.get("oldValue"));
                     jsonAsMapValue.put(NEW_VALUE, map.get("newValue"));
                 }
-                default -> throw new IllegalArgumentException (map.get("status").toString()
+                default -> throw new IllegalArgumentException(map.get("status").toString()
                         + " is bad status. JsonFormatter error");
             }
             jsonAsMapValue.put(STATUS, map.get(STATUS));
