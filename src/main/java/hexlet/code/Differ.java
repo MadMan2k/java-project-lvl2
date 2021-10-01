@@ -29,7 +29,7 @@ public class Differ {
             throws IOException {
         Path firstPath = Path.of(firstStringPath);
         Path secondPath = Path.of(secondStringPath);
-        checkFilepathAndFileIsNotEmptyExceptions(firstPath, secondPath);
+//        checkFilepathAndFileIsNotEmptyExceptions(firstPath, secondPath);
 
         Map<String, Object> parsedContent1 = getParsedMap(firstPath);
         Map<String, Object> parsedContent2 = getParsedMap(secondPath);
@@ -47,21 +47,6 @@ public class Differ {
     public static String generate(String firstStringPath, String secondStringPath)
             throws IOException {
         return generate(firstStringPath, secondStringPath, "stylish");
-    }
-
-    private static void checkFilepathAndFileIsNotEmptyExceptions(Path path1, Path path2) {
-        Path[] pathsArray = new Path[2];
-        pathsArray[0] = path1;
-        pathsArray[1] = path2;
-
-        for (Path p : pathsArray) {
-            if (!Files.exists(p)) {
-                throw new IllegalArgumentException("Bad filepath " + p);
-            }
-            if (new File(String.valueOf(p)).length() == 0) {
-                throw new IllegalArgumentException(p + " is empty");
-            }
-        }
     }
 
     public static String getFileExtension(String stringPath) {
