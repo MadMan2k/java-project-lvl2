@@ -28,7 +28,6 @@ public class Differ {
             throws IOException {
         Path firstPath = Path.of(firstStringPath);
         Path secondPath = Path.of(secondStringPath);
-//        checkFilepathAndFileIsNotEmptyExceptions(firstPath, secondPath);
 
         Map<String, Object> parsedContent1 = getParsedMap(firstPath);
         Map<String, Object> parsedContent2 = getParsedMap(secondPath);

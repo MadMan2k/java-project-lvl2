@@ -69,19 +69,19 @@ class DifferTest {
         assertThat(Differ.generate(pathTestComplexFile3, pathTestComplexFile4, "json")).isEqualTo(expected);
     }
 
-//    @Test
-//    void testDifferWithDefaultFormat() throws IOException {
-//        String expected = """
-//                {
-//                  - follow: false
-//                    host: hexlet.io
-//                  - proxy: 123.234.53.22
-//                  - timeout: 50
-//                  + timeout: 20
-//                  + verbose: true
-//                }""";
-//        assertThat(Differ.generate(pathTestFile1, pathTestFile2)).isEqualTo(expected);
-//    }
+    @Test
+    void testDifferWithDefaultFormat() throws IOException {
+        String expected = """
+                {
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  + timeout: 20
+                  + verbose: true
+                }""";
+        assertThat(Differ.generate(pathTestFile1, pathTestFile2)).isEqualTo(expected);
+    }
 
     @Test
     void testFileNotSupportedException() {
