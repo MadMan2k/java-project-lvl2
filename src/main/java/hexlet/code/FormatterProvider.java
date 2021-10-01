@@ -12,7 +12,6 @@ public class FormatterProvider {
             case "stylish" -> new StylishFormatter();
             case "plain" -> new PlainFormatter();
             case "json" -> new JsonFormatter();
-//            case "jsonform" -> new FormattedJsonFormatter();  // look FormattedJsonFormatter.java
             default -> throw new IllegalArgumentException(format
                     + " not supported. Only stylish/plain/json output allowed");
         };
