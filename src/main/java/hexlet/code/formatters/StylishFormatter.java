@@ -20,19 +20,19 @@ public class StylishFormatter implements Formatter {
         StringBuilder sb = new StringBuilder();
         sb.append("{").append(NEW_LINE);
 
-        for(Map<String, Object> map : differences) {
+        for (Map<String, Object> map : differences) {
             switch (map.get("status").toString()) {
                 case "added" -> sb.append(ADDED).append(map.get(FIELD)).append(COLON).append(map.get(NEW_VALUE)).
                         append(NEW_LINE);
                 case "removed" -> sb.append(REMOVED).append(map.get(FIELD)).append(COLON).append(map.get(OLD_VALUE)).
                         append(NEW_LINE);
-                case "unaffected" -> sb.append(UNAFFECTED).append(map.get(FIELD)).append(COLON).append(map.get(OLD_VALUE)).
-                        append(NEW_LINE);
+                case "unaffected" -> sb.append(UNAFFECTED).append(map.get(FIELD)).append(COLON).
+                        append(map.get(OLD_VALUE)).append(NEW_LINE);
                 case "updated" -> {
                     sb.append(REMOVED).append(map.get(FIELD)).append(COLON).append(map.get(OLD_VALUE)).append(NEW_LINE);
                     sb.append(ADDED).append(map.get(FIELD)).append(COLON).append(map.get(NEW_VALUE)).append(NEW_LINE);
                 }
-                default -> throw new IllegalArgumentException (map.get("status").toString()
+                default -> throw new IllegalArgumentException(map.get("status").toString()
                         + " is bad status. StylishFormatter error");
             }
         }

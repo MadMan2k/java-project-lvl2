@@ -17,13 +17,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Differ {
-
-     public static void main(String[] args) throws IOException {
-         String outputFormat = "stylish";
-         String str = generate("src/test/resources/TestComplexFile3.json",
-                 "src/test/resources/TestComplexFile4.json", outputFormat);
-         System.out.println(str);
-     }
+    public static void main(String[] args) throws IOException {
+        String outputFormat = "stylish";
+        String str = generate("src/test/resources/TestComplexFile3.json",
+                "src/test/resources/TestComplexFile4.json", outputFormat);
+        System.out.println(str);
+    }
 
 
     public static String generate(String firstStringPath, String secondStringPath, String outputFormat)
