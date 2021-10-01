@@ -88,13 +88,15 @@ class DifferTest {
     @Test
     void testDifferences() {
         Map<String, Object> parsedContent1 = new LinkedHashMap<>();
+        int fifty = 50;
         parsedContent1.put("host", "hexlet.io");
-        parsedContent1.put("timeout", 50);
+        parsedContent1.put("timeout", fifty);
         parsedContent1.put("proxy", "123.234.53.22");
         parsedContent1.put("follow", false);
 
         Map<String, Object> parsedContent2 = new LinkedHashMap<>();
-        parsedContent2.put("timeout", 20);
+        int twenty = 20;
+        parsedContent2.put("timeout", twenty);
         parsedContent2.put("verbose", true);
         parsedContent2.put("host", "hexlet.io");
 
