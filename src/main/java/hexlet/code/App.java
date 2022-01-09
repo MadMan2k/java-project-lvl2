@@ -8,6 +8,7 @@ import picocli.CommandLine.Parameters;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
+// Differ
 @Command(name = "gendiff", version = "gendiff 0.1", mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
 public class App implements Callable {
